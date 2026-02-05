@@ -1,0 +1,13 @@
+export { default as PlusIcon } from "./PlusIcon";
+export { default as SendIcon } from "./SendIcon";
+export { default as HomeIcon } from "./HomeIcon";
+export { default as DiscoverIcon } from "./DiscoverIcon";
+export { default as HistoryIcon } from "./HistoryIcon";
+export { default as SettingsIcon } from "./SettingsIcon";
+export { default as MoonIcon } from "./MoonIcon";
+export { default as SunIcon } from "./SunIcon";
+export { default as CompassIcon } from "./CompassIcon";
+export { default as DocumentIcon } from "./DocumentIcon";
+export { default as LayersIcon } from "./LayersIcon";
+export { default as CodeIcon } from "./CodeIcon";
+export { default as BrandSparkIcon } from "./BrandSparkIcon";

@@ -1,0 +1,482 @@
+/* ===============================
+   SIDEBAR CONTAINER
+================================ */
+
+.sidebar {
+  width: 260px;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  background: var(--sidebar);
+  border-right: 1px solid var(--border);
+}
+
+/* ===============================
+   BRAND
+================================ */
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+
+  background: linear-gradient(
+    135deg,
+    var(--primary),
+    #6b8cff
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-icon-svg {
+  width: 18px;
+  height: 18px;
+  stroke: white;
+}
+
+/* ===============================
+   NEW CHAT BUTTON
+================================ */
+
+.new-chat-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-primary);
+
+  cursor: pointer;
+  font-size: var(--font-sm);
+  font-weight: 500;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.new-chat-btn:hover {
+  border-color: var(--primary-soft);
+  box-shadow: var(--shadow-md);
+}
+
+/* ===============================
+   NAVIGATION
+================================ */
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+
+  cursor: pointer;
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-item.active {
+  background: var(--primary-soft);
+  color: var(--text-primary);
+}
+
+.nav-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .nav-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ===============================
+   RECENT CHATS
+================================ */
+
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  flex: 1;
+  min-height: 0;
+}
+
+.section-title {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.chat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* ===============================
+   CHAT ITEM (HOVER ENHANCED)
+================================ */
+
+.chat-item {
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+
+  cursor: pointer;
+  font-size: var(--font-sm);
+  color: var(--text-primary);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: relative;
+
+  transition:
+    background-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.12s ease;
+}
+
+/* Hover effect */
+.chat-item:hover {
+  background: rgba(15, 23, 42, 0.05);
+  box-shadow: inset 2px 0 0 var(--primary-soft);
+}
+
+[data-theme="dark"] .chat-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Active chat (takes priority) */
+.chat-item.active {
+  background: var(--primary-soft);
+}
+
+/* ===============================
+   CHAT META
+================================ */
+
+.chat-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.chat-title {
+  display: block;
+  font-weight: 500;
+}
+
+.chat-time {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+}
+
+/* ===============================
+   CHAT DELETE BUTTON
+================================ */
+
+.chat-delete-btn {
+  opacity: 0;
+  pointer-events: none;
+
+  background: transparent;
+  border: none;
+  padding: 4px;
+
+  cursor: pointer;
+  color: var(--text-muted);
+
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.chat-item:hover .chat-delete-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.chat-delete-btn:hover {
+  color: #ef4444;
+}
+
+/* ===============================
+   FOOTER
+================================ */
+
+.sidebar-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  flex-shrink: 0;
+}
+
+.settings-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-primary);
+
+  cursor: pointer;
+
+  transition: background-color 0.2s ease;
+}
+
+.settings-btn:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .settings-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ===============================
+   THEME TOGGLE
+================================ */
+
+.theme-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(15, 23, 42, 0.04);
+  border: 1px solid var(--border);
+
+  cursor: pointer;
+  color: var(--text-primary);
+
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="dark"] .theme-toggle {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #e5e7eb;
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.theme-icon-svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+
+/* ===============================
+   MOBILE (COLLAPSIBLE SIDEBAR)
+================================ */
+
+.sidebar-overlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 90;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .sidebar-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: 280px;
+
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 100;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+}
+
+/* ===============================
+   SIDEBAR DELETE CONFIRM MODAL
+================================ */
+
+.sidebar-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-confirm-modal {
+  position: relative;
+  width: 360px;
+  max-width: calc(100% - 32px);
+
+  background: var(--surface);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+
+  padding: 20px;
+  color: var(--text-primary);
+}
+
+.sidebar-confirm-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.sidebar-confirm-close:hover {
+  color: var(--text-primary);
+}
+
+.sidebar-confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.sidebar-confirm-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: var(--font-sm);
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+}
+
+.sidebar-confirm-btn.cancel:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.sidebar-confirm-btn.danger {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: white;
+}
+
+.sidebar-confirm-btn.danger:hover {
+  background: #dc2626;
+}
+
+/* ===============================
+   CONFIRM MODAL – DARK MODE FIX
+================================ */
+
+/* Ensure cancel text is visible */
+.sidebar-confirm-btn.cancel {
+  color: var(--text-primary);
+}
+
+/* Hover state */
+.sidebar-confirm-btn.cancel:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Extra safety for dark mode */
+[data-theme="dark"] .sidebar-confirm-btn.cancel {
+  color: #e5e7eb;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* ===============================
+   SIDEBAR SKELETONS
+================================ */
+
+.chat-skeleton {
+  height: 42px;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--surface) 25%,
+    var(--border) 37%,
+    var(--surface) 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+

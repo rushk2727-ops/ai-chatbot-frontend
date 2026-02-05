@@ -1,0 +1,98 @@
+/* ===============================
+   APP BACKGROUND (OUTER CANVAS)
+================================ */
+
+.app-background {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    radial-gradient(
+      1200px 600px at 15% 10%,
+      rgba(79, 124, 255, 0.15),
+      transparent 40%
+    ),
+    radial-gradient(
+      900px 500px at 85% 90%,
+      rgba(99, 102, 241, 0.15),
+      transparent 40%
+    ),
+    var(--bg-base);
+
+  /* ✅ VISIBLE THEME TRANSITION */
+  transition:
+    background 0.35s ease;
+}
+
+/* Dark mode background */
+[data-theme="dark"] .app-background {
+  background:
+    radial-gradient(
+      1200px 600px at 15% 10%,
+      rgba(99, 102, 241, 0.18),
+      transparent 40%
+    ),
+    radial-gradient(
+      900px 500px at 85% 90%,
+      rgba(139, 92, 246, 0.18),
+      transparent 40%
+    ),
+    var(--bg-base);
+}
+
+/* ===============================
+   APP FRAME (MAIN CONTAINER)
+================================ */
+
+.app-frame {
+  width: 94vw;
+  max-width: 1320px;
+  height: 90vh;
+
+  display: flex;
+  overflow: hidden;
+
+  border-radius: var(--radius-lg);
+
+  background: var(--surface);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  box-shadow:
+    var(--shadow-lg),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+
+  /* ✅ VISIBLE THEME TRANSITION */
+  transition:
+    background-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* Dark mode frame */
+[data-theme="dark"] .app-frame {
+  box-shadow:
+    var(--shadow-lg),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* ===============================
+   OPTIONAL (RECOMMENDED POLISH)
+   Smooth component-level transitions
+================================ */
+
+/* These are the REAL visible UI surfaces */
+.sidebar,
+.chat-shell,
+.suggestion-card,
+.composer,
+.new-chat-btn,
+.settings-btn,
+.theme-toggle {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}

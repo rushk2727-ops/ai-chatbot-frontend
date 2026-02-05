@@ -1,0 +1,373 @@
+/* ===============================
+   DESIGN TOKENS (GLOBAL IMPORT)
+   IMPORTANT: must be first
+================================ */
+
+@import "./styles/tokens.css";
+
+/* ===============================
+   GLOBAL RESET
+================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+}
+
+/* ===============================
+   APP BACKGROUND (OUTER CANVAS)
+================================ */
+
+.app-background {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    radial-gradient(
+      1200px 600px at 15% 10%,
+      rgba(79, 124, 255, 0.15),
+      transparent 40%
+    ),
+    radial-gradient(
+      900px 500px at 85% 90%,
+      rgba(99, 102, 241, 0.15),
+      transparent 40%
+    ),
+    var(--bg-base);
+
+  transition: background 0.35s ease;
+}
+
+[data-theme="dark"] .app-background {
+  background:
+    radial-gradient(
+      1200px 600px at 15% 10%,
+      rgba(99, 102, 241, 0.18),
+      transparent 40%
+    ),
+    radial-gradient(
+      900px 500px at 85% 90%,
+      rgba(139, 92, 246, 0.18),
+      transparent 40%
+    ),
+    var(--bg-base);
+}
+
+/* ===============================
+   APP FRAME (GLASS CONTAINER)
+================================ */
+
+.app-frame {
+  width: 94vw;
+  max-width: 1320px;
+  height: 90vh;
+
+  display: flex;
+  overflow: hidden;
+
+  border-radius: var(--radius-lg);
+
+  background: var(--surface);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  box-shadow:
+    var(--shadow-lg),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+
+  transition:
+    background-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+[data-theme="dark"] .app-frame {
+  box-shadow:
+    var(--shadow-lg),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* ===============================
+   CHAT SHELL
+================================ */
+
+.chat-shell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ===============================
+   EMPTY STATE
+================================ */
+
+.empty-state {
+  margin: auto;
+  max-width: 640px;
+  text-align: center;
+}
+
+.empty-header {
+  margin-bottom: 40px;
+}
+
+.empty-header h1 {
+  font-size: var(--font-xl);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.empty-header p {
+  font-size: var(--font-md);
+  color: var(--text-muted);
+}
+
+/* ===============================
+   SUGGESTION CARDS
+================================ */
+
+.suggestion-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.suggestion-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  padding: 18px;
+  text-align: left;
+
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.suggestion-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-soft);
+}
+
+.suggestion-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+
+  background: rgba(79, 124, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+}
+
+.suggestion-icon-svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--primary);
+}
+
+.suggestion-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.suggestion-title {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.suggestion-desc {
+  font-size: var(--font-sm);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+[data-theme="dark"] .suggestion-card {
+  background: var(--surface-soft);
+  border-color: var(--border);
+}
+
+/* ===============================
+   CHAT WINDOW
+================================ */
+
+.chat-window {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ===============================
+   MESSAGE BUBBLES
+================================ */
+
+.message {
+  max-width: 70%;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  line-height: 1.55;
+  font-size: var(--font-sm);
+}
+
+.message.user {
+  align-self: flex-end;
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.message.ai {
+  align-self: flex-start;
+  background: var(--bubble);
+}
+
+.message-meta {
+  font-size: var(--font-xs);
+  opacity: 0.6;
+  margin-bottom: 4px;
+}
+
+.message-content {
+  white-space: pre-wrap;
+}
+
+/* ===============================
+   COMPOSER
+================================ */
+
+.composer-wrapper {
+  margin-top: auto;
+  padding: 16px 24px 20px;
+}
+
+.composer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 16px;
+  border-radius: 999px;
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] .composer {
+  box-shadow: var(--shadow-lg);
+}
+
+.composer-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+
+  font-size: var(--font-sm);
+  color: var(--text-primary);
+}
+
+.composer-input::placeholder {
+  color: var(--text-muted);
+}
+
+.composer-input:focus {
+  outline: none;
+}
+
+.composer-tool,
+.composer-send {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.composer-tool:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .composer-tool:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.composer-send {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.composer-send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.composer-send .icon-svg {
+  fill: #ffffff;
+  stroke: #ffffff;
+}
+
+/* ===============================
+   ICON SYSTEM (SVG-BASED)
+================================ */
+
+.icon-svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+
+/* ===============================
+   SMOOTH THEME TRANSITIONS
+================================ */
+
+html {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.sidebar,
+.chat-shell,
+.suggestion-card,
+.composer,
+.new-chat-btn {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
