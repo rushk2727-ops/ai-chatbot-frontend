@@ -1,4 +1,6 @@
 export default function MessageBubble({ message, dim = false, typing = false }) {
+  const isAI = message.role === "ai";
+
   return (
     <div
       className={[
@@ -8,14 +10,13 @@ export default function MessageBubble({ message, dim = false, typing = false }) 
         typing ? "message-typing" : ""
       ].join(" ")}
     >
-      {/* META: hide label when typing */}
-      {!typing && (
-        <div className="message-meta">
-          {message.role === "user" ? "You" : "AI"}
-          {message.time ? ` · ${message.time}` : ""}
-        </div>
-      )}
+      {/* META */}
+      <div className="message-meta">
+        {isAI ? "AI" : "You"}
+        {!typing && message.time ? ` · ${message.time}` : ""}
+      </div>
 
+      {/* CONTENT */}
       <div className="message-content">
         {typing ? (
           <span className="icon icon-typing" />
