@@ -1,4 +1,3 @@
-// src/components/ChatShell.jsx
 import { useEffect, useRef, useState } from "react";
 import EmptyState from "./EmptyState";
 import ChatWindow from "./ChatWindow";
@@ -19,10 +18,11 @@ export default function ChatShell({
 }) {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [thinking, setThinking] = useState(false);
   const endRef = useRef(null);
-  const thinkingTimerRef = useRef(null);
 
+  /* ===============================
+     LOAD MESSAGES ON CONVO CHANGE
+  ================================ */
   useEffect(() => {
     if (!conversationId) {
       setMessages([]);
@@ -52,24 +52,30 @@ export default function ChatShell({
     loadMessages();
   }, [conversationId]);
 
+  /* ===============================
+     AUTO SCROLL
+  ================================ */
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, loading, thinking]);
+  }, [messages, loading]);
 
+  /* ===============================
+     SEND MESSAGE (FIXED)
+  ================================ */
   async function sendMessage(text) {
     if (!text.trim() || loading) return;
 
+    const userId = crypto.randomUUID();
+    const typingId = crypto.randomUUID();
+
+    // 1️⃣ Add user message + AI typing placeholder
     setMessages((prev) => [
       ...prev,
-      { id: crypto.randomUUID(), role: "user", text, time: now() }
+      { id: userId, role: "user", text, time: now() },
+      { id: typingId, role: "ai", text: "", typing: true }
     ]);
 
     setLoading(true);
-    setThinking(false);
-
-    thinkingTimerRef.current = setTimeout(() => {
-      setThinking(true);
-    }, 3000);
 
     try {
       const res = await fetch(`${API_BASE}/chat`, {
@@ -80,29 +86,42 @@ export default function ChatShell({
 
       const data = await res.json();
 
-      setMessages((prev) => [
-        ...prev,
-        { id: crypto.randomUUID(), role: "ai", text: data.reply, time: now() }
-      ]);
+      // 2️⃣ Replace typing bubble with real AI reply
+      setMessages((prev) =>
+        prev.map((m) =>
+          m.id === typingId
+            ? {
+                ...m,
+                text: data.reply,
+                typing: false,
+                time: now()
+              }
+            : m
+        )
+      );
 
       onConversationUpdated?.();
     } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: crypto.randomUUID(),
-          role: "ai",
-          text: "⚠️ Failed to get response",
-          time: now()
-        }
-      ]);
+      setMessages((prev) =>
+        prev.map((m) =>
+          m.id === typingId
+            ? {
+                ...m,
+                text: "⚠️ Failed to get response",
+                typing: false,
+                time: now()
+              }
+            : m
+        )
+      );
     } finally {
-      clearTimeout(thinkingTimerRef.current);
-      setThinking(false);
       setLoading(false);
     }
   }
 
+  /* ===============================
+     RENDER
+  ================================ */
   return (
     <div className="chat-shell">
       <div className="chat-header">
@@ -116,14 +135,11 @@ export default function ChatShell({
         {messages.length === 0 && !loading ? (
           <EmptyState onSelect={sendMessage} />
         ) : (
-          <>
-            <ChatWindow messages={messages} loading={loading} endRef={endRef} />
-            {thinking && (
-              <div className="thinking-hint">
-                Thinking… this may take a few seconds
-              </div>
-            )}
-          </>
+          <ChatWindow
+            messages={messages}
+            loading={loading}
+            endRef={endRef}
+          />
         )}
       </div>
 
