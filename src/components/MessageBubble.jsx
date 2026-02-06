@@ -1,28 +1,13 @@
-export default function MessageBubble({ message, dim = false, typing = false }) {
-  const isAI = message.role === "ai";
-
+export default function MessageBubble({ message }) {
   return (
-    <div
-      className={[
-        "message",
-        message.role,
-        dim ? "message-dim" : "",
-        typing ? "message-typing" : ""
-      ].join(" ")}
-    >
-      {/* META */}
+    <div className={`message-row ${message.role}`}>
       <div className="message-meta">
-        {isAI ? "AI" : "You"}
-        {!typing && message.time ? ` · ${message.time}` : ""}
+        {message.role === "user" ? "You" : "AI"}
+        {message.time ? ` · ${message.time}` : ""}
       </div>
 
-      {/* CONTENT */}
-      <div className="message-content">
-        {typing ? (
-          <span className="icon icon-typing" />
-        ) : (
-          message.text
-        )}
+      <div className={`message-bubble ${message.role}`}>
+        {message.text}
       </div>
     </div>
   );

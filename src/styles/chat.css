@@ -224,3 +224,21 @@
   opacity: 0.6;
   font-style: italic;
 }
+
+.ai-thinking {
+  margin: 12px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ai-thinking-label {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.ai-thinking-text {
+  font-size: 14px;
+  font-style: italic;
+  opacity: 0.7;
+}
