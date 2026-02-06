@@ -1,21 +1,31 @@
 // src/components/MessageBubble.jsx
 
 export default function MessageBubble({ message, dim = false, typing = false }) {
+  const isAI = message.role === "ai";
+
   return (
     <div
       className={[
-        "message",
+        "message-row",
         message.role,
         dim ? "message-dim" : "",
         typing ? "message-typing" : ""
       ].join(" ")}
     >
-      <div className="message-meta">
-        {message.role === "user" ? "You" : "AI"}
-        {message.time ? ` · ${message.time}` : ""}
-      </div>
+      {/* AI label (small & subtle) */}
+      {isAI && (
+        <div className="ai-indicator">
+          AI
+        </div>
+      )}
 
-      <div className="message-content">
+      {/* Message bubble */}
+      <div
+        className={[
+          "message-bubble",
+          message.role
+        ].join(" ")}
+      >
         {typing ? <span className="icon icon-typing" /> : message.text}
       </div>
     </div>
