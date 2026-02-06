@@ -1,4 +1,3 @@
-// src/components/Sidebar.jsx
 import { useState } from "react";
 import "./../styles/sidebar.css";
 import { BrandSparkIcon } from "./icons";
@@ -24,7 +23,8 @@ export default function Sidebar({
   const [showConfirm, setShowConfirm] = useState(false);
   const [chatToDelete, setChatToDelete] = useState(null);
 
-  const isLoading = chats.length === 0;
+  // ✅ FIX: loading should NOT depend on chats.length
+  const isLoading = chats === null;
 
   function openDeleteDialog(chatId) {
     setChatToDelete(chatId);
@@ -79,38 +79,44 @@ export default function Sidebar({
           <div className="section-title">Recent conversations</div>
 
           <div className="chat-list">
-            {isLoading
-              ? Array.from({ length: 5 }).map((_, i) => (
-                  <div key={i} className="chat-skeleton" />
-                ))
-              : chats.map((chat) => (
-                  <div
-                    key={chat._id}
-                    className={`chat-item ${
-                      chat._id === activeChatId ? "active" : ""
-                    }`}
-                    onClick={() => onSelectChat(chat._id)}
-                  >
-                    <div className="chat-meta">
-                      <span className="chat-title">
-                        {chat.title || "Untitled chat"}
-                      </span>
-                      <span className="chat-time">
-                        {new Date(chat.createdAt).toLocaleDateString()}
-                      </span>
-                    </div>
+            {isLoading && (
+              Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} className="chat-skeleton" />
+              ))
+            )}
 
-                    <button
-                      className="chat-delete-btn"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        openDeleteDialog(chat._id);
-                      }}
-                    >
-                      <SettingsIcon className="icon-svg" />
-                    </button>
+            {!isLoading && chats.length === 0 && (
+              <div className="empty-chats">
+                No conversations yet
+              </div>
+            )}
+
+            {!isLoading &&
+              chats.map((chat) => (
+                <div
+                  key={chat._id}
+                  className={`chat-item ${
+                    chat._id === activeChatId ? "active" : ""
+                  }`}
+                  onClick={() => onSelectChat(chat._id)}
+                >
+                  <div className="chat-meta">
+                    <span className="chat-title">
+                      {chat.title || "Untitled chat"}
+                    </span>
                   </div>
-                ))}
+
+                  <button
+                    className="chat-delete-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openDeleteDialog(chat._id);
+                    }}
+                  >
+                    <SettingsIcon className="icon-svg" />
+                  </button>
+                </div>
+              ))}
           </div>
         </div>
 
