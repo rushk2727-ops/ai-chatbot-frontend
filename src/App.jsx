@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar";
 import ChatShell from "./components/ChatShell";
 import AppFrame from "./layout/AppFrame";
 
+
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 /* ===============================
@@ -28,6 +29,8 @@ export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [conversations, setConversations] = useState([]);
   const [activeConversationId, setActiveConversationId] = useState(null);
+  const [chatKey, setChatKey] = useState(0);
+
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -57,9 +60,10 @@ export default function App() {
   }
 
   function handleNewChat() {
-    setActiveConversationId(null);
-    setSidebarOpen(false);
-  }
+  setActiveConversationId(null);
+  setChatKey((k) => k + 1); // 👈 force ChatShell reset
+  setSidebarOpen(false);
+}
 
   function handleSelectConversation(id) {
     setActiveConversationId(id);
@@ -99,10 +103,12 @@ export default function App() {
       />
 
       <ChatShell
-        conversationId={activeConversationId}
-        onToggleSidebar={toggleSidebar}
-        onConversationUpdated={loadConversations}
-      />
+  key={chatKey}
+  conversationId={activeConversationId}
+  onToggleSidebar={toggleSidebar}
+  onConversationUpdated={loadConversations}
+/>
+
     </AppFrame>
   );
 }
